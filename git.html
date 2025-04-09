@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version Control with Git: A Comprehensive Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .code-keyword { color: #f92672; }
+        .code-string { color: #e6db74; }
+        .code-comment { color: #75715e; }
+        .code-function { color: #66d9ef; }
+        .code-number { color: #ae81ff; }
+        .code-operator { color: #f92672; }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .section-anchor {
+            scroll-margin-top: 100px;
+        }
+        .branch-diagram {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #3b82f6;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-gray-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fab fa-git-alt text-3xl text-orange-500"></i>
+                <h1 class="text-2xl font-bold">Git Tutorial</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#introduction" class="hover:text-blue-200 transition">Introduction</a>
+                <a href="#basics" class="hover:text-blue-200 transition">Git Basics</a>
+                <a href="#branching" class="hover:text-blue-200 transition">Branching</a>
+                <a href="#security" class="hover:text-blue-200 transition">Security</a>
+            </nav>
+            <button class="md:hidden text-2xl" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-700 pb-4 px-4">
+            <div class="flex flex-col space-y-3">
+                <a href="#introduction" class="block py-2 hover:bg-gray-600 rounded px-4">Introduction</a>
+                <a href="#basics" class="block py-2 hover:bg-gray-600 rounded px-4">Git Basics</a>
+                <a href="#branching" class="block py-2 hover:bg-gray-600 rounded px-4">Branching</a>
+                <a href="#security" class="block py-2 hover:bg-gray-600 rounded px-4">Security</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col md:flex-row container mx-auto px-4 py-8">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 flex-shrink-0 mb-8 md:mb-0 md:mr-8">
+            <div class="bg-white rounded-lg shadow-md p-4 sticky top-28">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Table of Contents</h2>
+                <nav class="space-y-2">
+                    <a href="#introduction" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-info-circle mr-2 text-blue-500"></i> Introduction
+                    </a>
+                    <a href="#basics" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-code mr-2 text-blue-500"></i> Git Basics
+                    </a>
+                    <a href="#branching" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-code-branch mr-2 text-blue-500"></i> Branching Strategies
+                    </a>
+                    <a href="#security" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-lock mr-2 text-blue-500"></i> Managing Secrets
+                    </a>
+                    <a href="#conclusion" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-flag-checkered mr-2 text-blue-500"></i> Conclusion
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Introduction Section -->
+            <section id="introduction" class="section-anchor bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-info-circle text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Introduction to Version Control</h2>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">What is Version Control?</h3>
+                <p class="mb-4 text-gray-700">
+                    Version Control Systems (VCS) are tools that help track changes to files over time. Think of it like an "undo" button for your entire project, but much more powerful. It allows you to:
+                </p>
+                
+                <ul class="list-disc pl-5 space-y-2 mb-6 text-gray-700">
+                    <li>Track every change made to your codebase</li>
+                    <li>Revert to previous versions if something breaks</li>
+                    <li>Collaborate effectively with multiple developers on the same project without overwriting each other's work</li>
+                    <li>Understand the history of a project – who changed what, when, and why</li>
+                </ul>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Why Git?</h3>
+                <p class="text-gray-700">
+                    Git is the most popular distributed version control system (DVCS) today. It's fast, flexible, and designed for collaboration. "Distributed" means that every developer has a full copy of the project history on their local machine, making most operations very fast and allowing offline work.
+                </p>
+            </section>
+
+            <!-- Git Basics Section -->
+            <section id="basics" class="section-anchor bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-code text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Git Basics and Workflows</h2>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Core Concepts:</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Repository (Repo)</h4>
+                        <p class="text-gray-700">
+                            A directory containing your project files and a hidden .git subdirectory where Git stores all the history and metadata.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Commit</h4>
+                        <p class="text-gray-700">
+                            A snapshot of your project at a specific point in time. Each commit has a unique ID (a hash) and a commit message describing the changes.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Working Directory</h4>
+                        <p class="text-gray-700">
+                            The actual files and folders you see in your project directory.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Staging Area (Index)</h4>
+                        <p class="text-gray-700">
+                            An intermediate area where you prepare changes before committing them. You select which modifications from your working directory you want to include in the next commit.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Branch</h4>
+                        <p class="text-gray-700">
+                            An independent line of development. The default branch is usually called main or master. Branches allow you to work on new features or bug fixes without affecting the main codebase.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Remote</h4>
+                        <p class="text-gray-700">
+                            A version of your repository hosted on a server (like GitHub, GitLab, Bitbucket). This allows collaboration and backup. origin is the default name for the remote you cloned from.
+                        </p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Essential Commands:</h3>
+                
+                <div class="overflow-x-auto mb-6">
+                    <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 border-b text-left">Command</th>
+                                <th class="px-4 py-2 border-b text-left">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git init</code></td>
+                                <td class="px-4 py-2 border-b">Initializes a new, empty Git repository in the current directory</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git clone &lt;repository_url&gt;</code></td>
+                                <td class="px-4 py-2 border-b">Creates a local copy of a remote repository</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git status</code></td>
+                                <td class="px-4 py-2 border-b">Shows the current state of your working directory and staging area</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git add &lt;file_name&gt;</code> or <code>git add .</code></td>
+                                <td class="px-4 py-2 border-b">Adds changes from your working directory to the staging area</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git commit -m "message"</code></td>
+                                <td class="px-4 py-2 border-b">Creates a new commit with the staged changes</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git log</code></td>
+                                <td class="px-4 py-2 border-b">Shows the history of commits</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git branch</code></td>
+                                <td class="px-4 py-2 border-b">Lists all local branches</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git checkout &lt;branch_name&gt;</code></td>
+                                <td class="px-4 py-2 border-b">Switches your working directory to the specified branch</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git merge &lt;branch_name&gt;</code></td>
+                                <td class="px-4 py-2 border-b">Merges the specified branch's history into your current branch</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git pull</code></td>
+                                <td class="px-4 py-2 border-b">Fetches changes from the remote repository and merges them</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b"><code>git push</code></td>
+                                <td class="px-4 py-2 border-b">Sends your committed local changes to the remote repository</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Basic Workflow Example:</h3>
+                
+                <div class="code-block">
+                    <span class="code-comment"># Clone (if starting from existing remote repo)</span><br>
+                    git clone &lt;url&gt;<br><br>
+                    
+                    <span class="code-comment"># Or Initialize (if starting new local repo)</span><br>
+                    git init<br><br>
+                    
+                    <span class="code-comment"># Create a branch for your work</span><br>
+                    git checkout -b my-new-feature <span class="code-comment"># creates and switches</span><br><br>
+                    
+                    <span class="code-comment"># Make changes: Edit your project files</span><br><br>
+                    
+                    <span class="code-comment"># Check status</span><br>
+                    git status <span class="code-comment"># see what you changed</span><br><br>
+                    
+                    <span class="code-comment"># Stage changes</span><br>
+                    git add &lt;file1&gt; &lt;file2&gt; or git add .<br><br>
+                    
+                    <span class="code-comment"># Commit changes</span><br>
+                    git commit -m "Implement user login feature"<br><br>
+                    
+                    <span class="code-comment"># Push your branch (first time)</span><br>
+                    git push -u origin my-new-feature <span class="code-comment"># -u sets the upstream tracking</span><br><br>
+                    
+                    <span class="code-comment"># Push subsequent changes</span><br>
+                    git push<br><br>
+                    
+                    <span class="code-comment"># Later, merge: After review (e.g., via a Pull Request on GitHub), merge the feature branch into main</span>
+                </div>
+            </section>
+
+            <!-- Branching Strategies Section -->
+            <section id="branching" class="section-anchor bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-code-branch text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Branching Strategies</h2>
+                </div>
+                
+                <p class="mb-4 text-gray-700">
+                    Branching allows teams to work on different things in parallel without interference. Choosing a strategy depends on team size, project complexity, and release cycle.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Gitflow -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">Gitflow</h3>
+                        <div class="branch-diagram">
+                            <p class="font-medium">Branches:</p>
+                            <ul class="list-disc pl-5 text-gray-700">
+                                <li><code>main</code> (production-ready code)</li>
+                                <li><code>develop</code> (integration branch)</li>
+                                <li><code>feature/*</code> (new features)</li>
+                                <li><code>release/*</code> (preparing releases)</li>
+                                <li><code>hotfix/*</code> (critical fixes)</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4">
+                            <p class="font-medium text-green-600">Pros:</p>
+                            <p class="text-gray-700">Very structured, good for projects with scheduled releases. Clear separation of concerns.</p>
+                            
+                            <p class="font-medium text-red-600 mt-2">Cons:</p>
+                            <p class="text-gray-700">Can be complex, many long-lived branches.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- GitHub Flow -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">GitHub Flow</h3>
+                        <div class="branch-diagram">
+                            <p class="font-medium">Branches:</p>
+                            <ul class="list-disc pl-5 text-gray-700">
+                                <li><code>main</code> (always deployable)</li>
+                                <li><code>feature/*</code> (branched off main)</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4">
+                            <p class="font-medium text-green-600">Pros:</p>
+                            <p class="text-gray-700">Simple, fast, good for continuous deployment/integration (CI/CD).</p>
+                            
+                            <p class="font-medium text-red-600 mt-2">Cons:</p>
+                            <p class="text-gray-700">Requires robust testing before merging to main. main must always be stable.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- GitLab Flow -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">GitLab Flow</h3>
+                        <div class="branch-diagram">
+                            <p class="font-medium">Branches:</p>
+                            <ul class="list-disc pl-5 text-gray-700">
+                                <li><code>main</code> (production)</li>
+                                <li><code>feature/*</code> (branched off main)</li>
+                                <li>Environment branches (e.g., staging)</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4">
+                            <p class="font-medium text-green-600">Pros:</p>
+                            <p class="text-gray-700">Balances simplicity with structure for multiple environments.</p>
+                            
+                            <p class="font-medium text-red-600 mt-2">Cons:</p>
+                            <p class="text-gray-700">Can add slight overhead compared to GitHub Flow.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Which to Choose?</h3>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li><strong>Small teams, web apps, CI/CD:</strong> GitHub Flow is often preferred.</li>
+                    <li><strong>Larger teams, complex projects, scheduled releases:</strong> Gitflow might be suitable.</li>
+                    <li><strong>Need for staging/multiple environments:</strong> GitLab Flow provides a good model.</li>
+                </ul>
+            </section>
+
+            <!-- Security Section -->
+            <section id="security" class="section-anchor bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-lock text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Managing Sensitive Information</h2>
+                </div>
+                
+                <div class="warning-box">
+                    <div class="flex items-start">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 mt-1 mr-2"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">WARNING</h3>
+                            <p class="text-gray-700">
+                                NEVER commit sensitive data directly into your Git repository! This includes API keys, passwords, database credentials, and private certificates.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Why?</h3>
+                <ul class="list-disc pl-5 space-y-2 mb-6 text-gray-700">
+                    <li>Git history is generally permanent. Even if you remove the secret in a later commit, it still exists in the history.</li>
+                    <li>Pushing to public repositories (like GitHub) exposes your secrets to everyone.</li>
+                    <li>Even in private repositories, it increases the risk of exposure if the repo is compromised or access control is misconfigured.</li>
+                </ul>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">How to Handle Secrets</h3>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-lg mb-2 text-gray-800">.gitignore</h4>
+                    <p class="mb-2 text-gray-700">
+                        Create a file named <code class="bg-gray-100 px-1 py-0.5 rounded">.gitignore</code> in your repository's root directory. List files, directories, or patterns that Git should ignore (never track).
+                    </p>
+                    
+                    <div class="code-block">
+                        <span class="code-comment"># Configuration files</span><br>
+                        config.prod.json<br>
+                        .env<br><br>
+                        
+                        <span class="code-comment"># Log files</span><br>
+                        *.log<br>
+                        logs/<br><br>
+                        
+                        <span class="code-comment"># Dependency directories</span><br>
+                        node_modules/<br>
+                        vendor/<br><br>
+                        
+                        <span class="code-comment"># Build output</span><br>
+                        dist/<br>
+                        build/<br><br>
+                        
+                        <span class="code-comment"># OS generated files</span><br>
+                        .DS_Store<br>
+                        Thumbs.db
+                    </div>
+                    
+                    <p class="mt-2 text-gray-700">
+                        Add <code class="bg-gray-100 px-1 py-0.5 rounded">.gitignore</code> itself to the repository:
+                    </p>
+                    <div class="code-block">
+                        git add .gitignore && git commit -m "Add .gitignore"
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-lg mb-2 text-gray-800">Environment Variables</h4>
+                    <p class="text-gray-700">
+                        Store secrets in environment variables on the server or development machine where the code runs. Your application reads these variables at runtime. This is a very common and secure practice.
+                    </p>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-lg mb-2 text-gray-800">Configuration Files (Outside Repo or Templates)</h4>
+                    <p class="text-gray-700">
+                        Keep actual configuration files with secrets outside the Git repository. Commit a template or example configuration file (e.g., <code class="bg-gray-100 px-1 py-0.5 rounded">config.example.json</code>) to the repository, showing the structure but using placeholder values. Developers or deployment scripts copy the template and fill in the real secrets on the target machine.
+                    </p>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-lg mb-2 text-gray-800">Secret Management Tools</h4>
+                    <p class="text-gray-700">
+                        Use dedicated tools like HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, Google Secret Manager, or Doppler. These tools securely store and manage access to secrets. Your application fetches secrets from these services at runtime.
+                    </p>
+                </div>
+                
+                <div class="warning-box">
+                    <div class="flex items-start">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 mt-1 mr-2"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">Removing Accidentally Committed Secrets</h3>
+                            <p class="text-gray-700">
+                                This is difficult and dangerous because it involves rewriting repository history. If you push sensitive data:
+                            </p>
+                            <ol class="list-decimal pl-5 mt-2 space-y-1">
+                                <li>Immediately revoke/change the secret! Assume it's compromised.</li>
+                                <li>Clean the repository history using tools like BFG Repo-Cleaner (recommended) or git filter-branch.</li>
+                            </ol>
+                            <p class="mt-2 text-gray-700 font-semibold">
+                                WARNING: Rewriting history is a destructive operation. It changes commit IDs and requires all collaborators to re-clone or perform complex git pull --rebase operations. Coordinate carefully!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section id="conclusion" class="section-anchor bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-flag-checkered text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Conclusion</h2>
+                </div>
+                
+                <p class="mb-6 text-gray-700">
+                    Version control with Git is an essential skill for modern software development. Understanding the basics, adopting a suitable branching workflow, and diligently managing sensitive information will significantly improve your productivity, collaboration, and project security. Start simple, practice the commands, and gradually incorporate more advanced techniques as needed.
+                </p>
+                
+                <div class="mt-8 p-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg text-white">
+                    <h3 class="text-xl font-bold mb-3">Ready to Get Started?</h3>
+                    <p class="mb-4">
+                        Install Git on your machine and start practicing these commands with a test repository.
+                    </p>
+                    <div class="flex justify-center">
+                        <a href="https://git-scm.com/downloads" class="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-100 transition">
+                            Download Git
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fab fa-git-alt text-3xl text-orange-500"></i>
+                        <h2 class="text-xl font-bold">Git Tutorial</h2>
+                    </div>
+                    <p class="mt-2 text-gray-400">Version Control with Git: A Comprehensive Tutorial</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400">
+                <p>&copy; 2023 Git Tutorial. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
