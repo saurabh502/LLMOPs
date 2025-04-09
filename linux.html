@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Tutorial - Comprehensive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .sidebar {
+            scrollbar-width: thin;
+            scrollbar-color: #4b5563 #1f2937;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #4b5563;
+            border-radius: 20px;
+        }
+        .content-section {
+            scroll-margin-top: 100px;
+        }
+        .command-box {
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            position: relative;
+        }
+        .highlight::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 30%;
+            background-color: rgba(167, 139, 250, 0.3);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        .highlight:hover::after {
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fab fa-linux text-3xl text-emerald-400"></i>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+                    Linux Tutorial
+                </h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition-all">
+                    <i class="fas fa-search mr-2"></i>Search
+                </button>
+                <button class="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg transition-all">
+                    <i class="fas fa-terminal mr-2"></i>Try Terminal
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-gray-800 border-r border-gray-700 flex-shrink-0 overflow-y-auto sidebar hidden md:block">
+            <div class="p-4">
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold text-emerald-400 mb-2 flex items-center">
+                        <i class="fas fa-book-open mr-2"></i> Linux Fundamentals
+                    </h2>
+                    <ul class="space-y-1">
+                        <li><a href="#what-is-linux" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">What is Linux?</a></li>
+                        <li><a href="#open-source" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Open Source</a></li>
+                        <li><a href="#key-features" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Key Features</a></li>
+                        <li><a href="#linux-vs-unix" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Linux vs. Unix</a></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold text-blue-400 mb-2 flex items-center">
+                        <i class="fas fa-puzzle-piece mr-2"></i> Core Components
+                    </h2>
+                    <ul class="space-y-1">
+                        <li><a href="#kernel" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Kernel</a></li>
+                        <li><a href="#shell" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Shell</a></li>
+                        <li><a href="#file-system" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">File System</a></li>
+                        <li><a href="#gui" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Graphical Interface</a></li>
+                        <li><a href="#system-utilities" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">System Utilities</a></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold text-purple-400 mb-2 flex items-center">
+                        <i class="fas fa-boxes mr-2"></i> Linux Distributions
+                    </h2>
+                    <ul class="space-y-1">
+                        <li><a href="#distros" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Popular Distros</a></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold text-yellow-400 mb-2 flex items-center">
+                        <i class="fas fa-terminal mr-2"></i> Bash Commands
+                    </h2>
+                    <ul class="space-y-1">
+                        <li><a href="#basic-commands" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Basic Commands</a></li>
+                        <li><a href="#file-permissions" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">File Permissions</a></li>
+                        <li><a href="#redirection" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Redirection</a></li>
+                        <li><a href="#process-management" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Process Management</a></li>
+                        <li><a href="#networking" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Networking</a></li>
+                        <li><a href="#search-find" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Search & Find</a></li>
+                        <li><a href="#compression" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Compression</a></li>
+                        <li><a href="#system-info" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">System Info</a></li>
+                        <li><a href="#text-editors" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Text Editors</a></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold text-red-400 mb-2 flex items-center">
+                        <i class="fas fa-cubes mr-2"></i> Package Managers
+                    </h2>
+                    <ul class="space-y-1">
+                        <li><a href="#package-managers" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Overview</a></li>
+                        <li><a href="#debian-pkg" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Debian/Ubuntu</a></li>
+                        <li><a href="#redhat-pkg" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Red Hat/Fedora</a></li>
+                        <li><a href="#arch-pkg" class="block px-3 py-2 rounded hover:bg-gray-700 transition-all">Arch Linux</a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-button" class="md:hidden fixed bottom-6 right-6 bg-gray-800 text-white p-4 rounded-full shadow-lg z-50">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+
+        <!-- Mobile sidebar (hidden by default) -->
+        <div id="mobile-sidebar" class="fixed inset-0 bg-gray-900 bg-opacity-90 z-50 hidden">
+            <div class="absolute top-0 right-0 p-4">
+                <button id="close-mobile-menu" class="text-white text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="h-full overflow-y-auto p-6">
+                <h2 class="text-2xl font-bold text-emerald-400 mb-8">Linux Tutorial Menu</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-emerald-400 mb-2">Linux Fundamentals</h3>
+                        <ul class="space-y-2 ml-4">
+                            <li><a href="#what-is-linux" class="block py-2">What is Linux?</a></li>
+                            <li><a href="#open-source" class="block py-2">Open Source</a></li>
+                            <li><a href="#key-features" class="block py-2">Key Features</a></li>
+                            <li><a href="#linux-vs-unix" class="block py-2">Linux vs. Unix</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-400 mb-2">Core Components</h3>
+                        <ul class="space-y-2 ml-4">
+                            <li><a href="#kernel" class="block py-2">Kernel</a></li>
+                            <li><a href="#shell" class="block py-2">Shell</a></li>
+                            <li><a href="#file-system" class="block py-2">File System</a></li>
+                            <li><a href="#gui" class="block py-2">Graphical Interface</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-purple-400 mb-2">Distributions</h3>
+                        <ul class="space-y-2 ml-4">
+                            <li><a href="#distros" class="block py-2">Popular Distros</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-yellow-400 mb-2">Bash Commands</h3>
+                        <ul class="space-y-2 ml-4">
+                            <li><a href="#basic-commands" class="block py-2">Basic Commands</a></li>
+                            <li><a href="#file-permissions" class="block py-2">File Permissions</a></li>
+                            <li><a href="#process-management" class="block py-2">Process Management</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-red-400 mb-2">Package Managers</h3>
+                        <ul class="space-y-2 ml-4">
+                            <li><a href="#package-managers" class="block py-2">Overview</a></li>
+                            <li><a href="#debian-pkg" class="block py-2">Debian/Ubuntu</a></li>
+                            <li><a href="#redhat-pkg" class="block py-2">Red Hat/Fedora</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-6 md:p-8">
+            <div class="max-w-4xl mx-auto">
+                <!-- Introduction -->
+                <section class="mb-12 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-400 to-blue-500 bg-clip-text text-transparent">
+                        Linux Operating System
+                    </h1>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        A comprehensive guide to Linux fundamentals, commands, distributions, and package management.
+                    </p>
+                    <div class="mt-8 flex justify-center space-x-4">
+                        <button class="bg-emerald-600 hover:bg-emerald-500 px-6 py-3 rounded-lg transition-all flex items-center">
+                            <i class="fas fa-play mr-2"></i> Start Learning
+                        </button>
+                        <button class="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg transition-all flex items-center">
+                            <i class="fas fa-terminal mr-2"></i> Try Commands
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Linux Fundamentals -->
+                <section class="mb-16">
+                    <h2 class="text-3xl font-bold mb-8 text-emerald-400 flex items-center">
+                        <i class="fas fa-book-open mr-3"></i> Linux Fundamentals
+                    </h2>
+
+                    <!-- What is Linux? -->
+                    <div id="what-is-linux" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">What is Linux?</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                Linux is an open-source operating system kernel developed by Linus Torvalds in 1991. 
+                                It's the core of many operating systems, often called "Linux distributions."
+                            </p>
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-code text-emerald-400 mt-1 mr-2"></i>
+                                        <span>Developed by <span class="font-semibold">Linus Torvalds</span> in 1991</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-cogs text-emerald-400 mt-1 mr-2"></i>
+                                        <span>Core component of many operating systems (distributions)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-server text-emerald-400 mt-1 mr-2"></i>
+                                        <span>Powers everything from smartphones to supercomputers</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mt-4 flex items-center text-sm text-gray-400">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                Linux is technically just the kernel, but commonly refers to the entire OS (kernel + utilities + software)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Open Source -->
+                    <div id="open-source" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">Open Source</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                One of Linux's defining characteristics is its open-source nature. The source code is freely available for anyone to view, modify, and distribute.
+                            </p>
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold text-yellow-300 mb-2">Key Aspects:</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-lock-open text-purple-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Source code</span> is freely available</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-edit text-purple-400 mt-1 mr-2"></i>
+                                        <span>Users can <span class="font-semibold">modify</span> and customize</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-share-alt text-purple-400 mt-1 mr-2"></i>
+                                        <span>Freedom to <span class="font-semibold">distribute</span> changes</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-users text-purple-400 mt-1 mr-2"></i>
+                                        <span>Promotes <span class="font-semibold">collaboration</span> and innovation</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mt-4 p-4 bg-blue-900 bg-opacity-30 rounded-lg border border-blue-800">
+                                <h4 class="font-semibold text-blue-300 mb-2 flex items-center">
+                                    <i class="fas fa-lightbulb mr-2"></i> Did You Know?
+                                </h4>
+                                <p class="text-gray-300">
+                                    The open-source model has led to Linux being used in over 90% of the world's supercomputers and forming the basis for Android, the world's most popular mobile OS.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Features -->
+                    <div id="key-features" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">Key Features</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                Linux offers a robust set of features that make it powerful and versatile for various computing needs.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-emerald-300 mb-2 flex items-center">
+                                        <i class="fas fa-microchip mr-2"></i> Portability
+                                    </h4>
+                                    <p class="text-gray-300">
+                                        Runs on various hardware from embedded devices to mainframes.
+                                    </p>
+                                </div>
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-emerald-300 mb-2 flex items-center">
+                                        <i class="fas fa-tasks mr-2"></i> Multitasking
+                                    </h4>
+                                    <p class="text-gray-300">
+                                        Can run multiple programs simultaneously with efficient resource management.
+                                    </p>
+                                </div>
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-emerald-300 mb-2 flex items-center">
+                                        <i class="fas fa-users mr-2"></i> Multi-user
+                                    </h4>
+                                    <p class="text-gray-300">
+                                        Multiple users can access the system simultaneously with proper permissions.
+                                    </p>
+                                </div>
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-emerald-300 mb-2 flex items-center">
+                                        <i class="fas fa-shield-alt mr-2"></i> Security
+                                    </h4>
+                                    <p class="text-gray-300">
+                                        Robust permission system, SELinux, and regular security updates.
+                                    </p>
+                                </div>
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-emerald-300 mb-2 flex items-center">
+                                        <i class="fas fa-sliders-h mr-2"></i> Customizable
+                                    </h4>
+                                    <p class="text-gray-300">
+                                        Highly configurable to meet specific user needs and preferences.
+                                    </p>
+                                </div>
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-emerald-300 mb-2 flex items-center">
+                                        <i class="fas fa-terminal mr-2"></i> CLI & GUI
+                                    </h4>
+                                    <p class="text-gray-300">
+                                        Powerful command-line interface and optional graphical interfaces like GNOME, KDE.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Linux vs Unix -->
+                    <div id="linux-vs-unix" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">Linux vs. Unix</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                While Linux was inspired by Unix, there are important differences between these operating systems.
+                            </p>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-gray-700 rounded-lg overflow-hidden">
+                                    <thead class="bg-gray-600">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">Aspect</th>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">Linux</th>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">Unix</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-600">
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-200">Origin</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Developed by Linus Torvalds in 1991</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Developed at AT&T Bell Labs in 1969</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-200">License</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">GNU GPL (Open Source)</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Mostly proprietary</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-200">Cost</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Free</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Commercial (expensive)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-200">Development</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Community-driven</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Vendor-specific</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-200">Variants</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Many distributions (Ubuntu, Fedora, etc.)</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">AIX, HP-UX, Solaris, etc.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 p-4 bg-purple-900 bg-opacity-30 rounded-lg border border-purple-800">
+                                <h4 class="font-semibold text-purple-300 mb-2 flex items-center">
+                                    <i class="fas fa-random mr-2"></i> Compatibility Note
+                                </h4>
+                                <p class="text-gray-300">
+                                    Despite differences, Linux maintains high compatibility with Unix standards (POSIX), allowing many Unix programs to run on Linux with little or no modification.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Core Components -->
+                <section class="mb-16">
+                    <h2 class="text-3xl font-bold mb-8 text-blue-400 flex items-center">
+                        <i class="fas fa-puzzle-piece mr-3"></i> Core Components
+                    </h2>
+
+                    <!-- Kernel -->
+                    <div id="kernel" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">Kernel</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                The kernel is the core of the Linux operating system, acting as the bridge between software and hardware.
+                            </p>
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-brain text-yellow-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Manages system resources</span> (CPU, memory, devices)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-exchange-alt text-yellow-400 mt-1 mr-2"></i>
+                                        <span>Provides an <span class="font-semibold">interface</span> for user-level programs</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-shield-alt text-yellow-400 mt-1 mr-2"></i>
+                                        <span>Handles <span class="font-semibold">security</span> and access control</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-plug text-yellow-400 mt-1 mr-2"></i>
+                                        <span>Manages <span class="font-semibold">device drivers</span> and hardware communication</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mt-4 p-4 bg-yellow-900 bg-opacity-30 rounded-lg border border-yellow-800">
+                                <h4 class="font-semibold text-yellow-300 mb-2 flex items-center">
+                                    <i class="fas fa-code-branch mr-2"></i> Kernel Types
+                                </h4>
+                                <p class="text-gray-300">
+                                    Linux kernels come in different flavors: monolithic (traditional), microkernel (experimental), and hybrid. Most distributions use the monolithic kernel which includes all core functionality.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shell -->
+                    <div id="shell" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">Shell</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                The shell is a command-line interpreter that provides a user interface to interact with the kernel and execute commands.
+                            </p>
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold text-emerald-300 mb-2">Common Shells:</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-terminal text-purple-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Bash (Bourne Again SHell)</span> - Default on most Linux distributions</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-terminal text-purple-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Zsh (Z Shell)</span> - Powerful alternative with advanced features</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-terminal text-purple-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Fish (Friendly Interactive SHell)</span> - User-friendly with syntax highlighting</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-terminal text-purple-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Ksh (Korn SHell)</span> - Compatible with Bash but with some differences</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mt-4">
+                                <h4 class="font-semibold text-gray-300 mb-2">Example Bash Command:</h4>
+                                <div class="bg-black p-4 rounded-lg command-box">
+                                    <span class="text-green-400">user@linux:~$</span> <span class="text-white">echo "Hello, World!"</span><br>
+                                    <span class="text-white">Hello, World!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File System -->
+                    <div id="file-system" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">File System</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                Linux organizes data into files and directories using a hierarchical structure (tree-like).
+                            </p>
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold text-emerald-300 mb-2">Key Characteristics:</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-folder-open text-blue-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Everything is a file</span> - Including devices, directories, and sockets</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-sitemap text-blue-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Single root</span> - All files and directories stem from / (root)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-lock text-blue-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Permissions</span> - Fine-grained control over file access</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-hdd text-blue-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">Journaling</span> - Prevents data corruption (ext4, XFS, Btrfs)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mt-4">
+                                <h4 class="font-semibold text-gray-300 mb-2">Common Linux File Systems:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                    <div class="bg-gray-700 p-3 rounded-lg flex items-center">
+                                        <i class="fas fa-file-alt text-yellow-400 mr-3 text-xl"></i>
+                                        <span class="font-medium">ext4</span>
+                                    </div>
+                                    <div class="bg-gray-700 p-3 rounded-lg flex items-center">
+                                        <i class="fas fa-file-alt text-yellow-400 mr-3 text-xl"></i>
+                                        <span class="font-medium">XFS</span>
+                                    </div>
+                                    <div class="bg-gray-700 p-3 rounded-lg flex items-center">
+                                        <i class="fas fa-file-alt text-yellow-400 mr-3 text-xl"></i>
+                                        <span class="font-medium">Btrfs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-4 bg-blue-900 bg-opacity-30 rounded-lg border border-blue-800">
+                                <h4 class="font-semibold text-blue-300 mb-2 flex items-center">
+                                    <i class="fas fa-project-diagram mr-2"></i> Directory Structure
+                                </h4>
+                                <p class="text-gray-300">
+                                    Linux follows the Filesystem Hierarchy Standard (FHS) with directories like /bin (essential binaries), /etc (configuration files), /home (user directories), /var (variable data), and /usr (user programs).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GUI -->
+                    <div id="gui" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">Graphical User Interface (GUI)</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                While Linux is famous for its command-line interface, it also offers various graphical environments for user-friendly interaction.
+                            </p>
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold text-emerald-300 mb-2">Desktop Environments:</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fab fa-ubuntu text-orange-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">GNOME</span> - Modern, clean interface (default on Ubuntu, Fedora)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-desktop text-blue-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">KDE Plasma</span> - Feature-rich, highly customizable</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-leaf text-green-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">XFCE</span> - Lightweight, ideal for older hardware</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-paw text-red-400 mt-1 mr-2"></i>
+                                        <span><span class="font-semibold">LXQt</span> - Ultra-lightweight for minimal systems</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mt-4">
+                                <h4 class="font-semibold text-gray-300 mb-2">Window Managers:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="bg-gray-700 p-3 rounded-lg">
+                                        <span class="font-medium text-purple-300">i3</span> - Tiling window manager for keyboard-centric workflow
+                                    </div>
+                                    <div class="bg-gray-700 p-3 rounded-lg">
+                                        <span class="font-medium text-purple-300">Awesome</span> - Highly configurable, extensible with Lua
+                                    </div>
+                                    <div class="bg-gray-700 p-3 rounded-lg">
+                                        <span class="font-medium text-purple-300">Openbox</span> - Lightweight stacking window manager
+                                    </div>
+                                    <div class="bg-gray-700 p-3 rounded-lg">
+                                        <span class="font-medium text-purple-300">Compiz</span> - Known for visual effects and desktop cube
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-4 bg-purple-900 bg-opacity-30 rounded-lg border border-purple-800">
+                                <h4 class="font-semibold text-purple-300 mb-2 flex items-center">
+                                    <i class="fas fa-magic mr-2"></i> Display Servers
+                                </h4>
+                                <p class="text-gray-300">
+                                    Linux GUIs rely on display servers like X11 (traditional) or Wayland (modern). Wayland offers better security and performance but may lack some compatibility with older applications.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Utilities -->
+                    <div id="system-utilities" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">System Utilities</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                Linux includes a comprehensive set of tools for system administration and maintenance.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-yellow-300 mb-2 flex items-center">
+                                        <i class="fas fa-microchip mr-2"></i> Process Management
+                                    </h4>
+                                    <ul class="space-y-2 ml-2">
+                                        <li><span class="font-mono text-green-300">ps</span> - List processes</li>
+                                        <li><span class="font-mono text-green-300">top</span> - Dynamic process viewer</li>
+                                        <li><span class="font-mono text-green-300">kill</span> - Terminate processes</li>
+                                        <li><span class="font-mono text-green-300">nice</span> - Adjust process priority</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-yellow-300 mb-2 flex items-center">
+                                        <i class="fas fa-network-wired mr-2"></i> Networking
+                                    </h4>
+                                    <ul class="space-y-2 ml-2">
+                                        <li><span class="font-mono text-green-300">ifconfig</span> - Network interface config</li>
+                                        <li><span class="font-mono text-green-300">ping</span> - Test network connectivity</li>
+                                        <li><span class="font-mono text-green-300">netstat</span> - Network statistics</li>
+                                        <li><span class="font-mono text-green-300">ssh</span> - Secure remote access</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-yellow-300 mb-2 flex items-center">
+                                        <i class="fas fa-hdd mr-2"></i> Disk Management
+                                    </h4>
+                                    <ul class="space-y-2 ml-2">
+                                        <li><span class="font-mono text-green-300">df</span> - Disk space usage</li>
+                                        <li><span class="font-mono text-green-300">du</span> - Directory space usage</li>
+                                        <li><span class="font-mono text-green-300">mount</span> - Mount filesystems</li>
+                                        <li><span class="font-mono text-green-300">fsck</span> - Filesystem check</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-yellow-300 mb-2 flex items-center">
+                                        <i class="fas fa-tools mr-2"></i> System Monitoring
+                                    </h4>
+                                    <ul class="space-y-2 ml-2">
+                                        <li><span class="font-mono text-green-300">uptime</span> - System uptime</li>
+                                        <li><span class="font-mono text-green-300">free</span> - Memory usage</li>
+                                        <li><span class="font-mono text-green-300">vmstat</span> - Virtual memory stats</li>
+                                        <li><span class="font-mono text-green-300">dmesg</span> - Kernel messages</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-4 bg-yellow-900 bg-opacity-30 rounded-lg border border-yellow-800">
+                                <h4 class="font-semibold text-yellow-300 mb-2 flex items-center">
+                                    <i class="fas fa-terminal mr-2"></i> Systemd
+                                </h4>
+                                <p class="text-gray-300">
+                                    Modern Linux distributions use systemd as their init system and service manager, providing commands like <span class="font-mono">systemctl</span> (control services), <span class="font-mono">journalctl</span> (view logs), and <span class="font-mono">timedatectl</span> (manage time).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Linux Distributions -->
+                <section class="mb-16">
+                    <h2 class="text-3xl font-bold mb-8 text-purple-400 flex items-center">
+                        <i class="fas fa-boxes mr-3"></i> Linux Distributions
+                    </h2>
+
+                    <!-- Distros -->
+                    <div id="distros" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">Linux Distributions (Distros)</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                A Linux distribution is a complete operating system based on the Linux kernel, packaged with software for various purposes.
+                            </p>
+                            
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold text-emerald-300 mb-3">Popular Linux Distributions:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <!-- Debian -->
+                                    <div class="bg-gray-600 p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fab fa-debian text-red-400 text-2xl mr-3"></i>
+                                            <h5 class="text-lg font-semibold">Debian</h5>
+                                        </div>
+                                        <p class="text-gray-300 text-sm">
+                                            Stable, used as a base for many other distros. Known for its strict free software policy.
+                                        </p>
+                                        <div class="mt-2 flex flex-wrap gap-1">
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">Stable</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">Universal</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">APT</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Ubuntu -->
+                                    <div class="bg-gray-600 p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fab fa-ubuntu text-orange-400 text-2xl mr-3"></i>
+                                            <h5 class="text-lg font-semibold">Ubuntu</h5>
+                                        </div>
+                                        <p class="text-gray-300 text-sm">
+                                            User-friendly, popular for desktops and servers. Based on Debian with regular releases.
+                                        </p>
+                                        <div class="mt-2 flex flex-wrap gap-1">
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">User-friendly</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">LTS</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">Snap</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Fedora -->
+                                    <div class="bg-gray-600 p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-hat-cowboy text-blue-400 text-2xl mr-3"></i>
+                                            <h5 class="text-lg font-semibold">Fedora</h5>
+                                        </div>
+                                        <p class="text-gray-300 text-sm">
+                                            Cutting-edge, community-driven. Often includes newest technologies. Sponsored by Red Hat.
+                                        </p>
+                                        <div class="mt-2 flex flex-wrap gap-1">
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">Innovative</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">DNF</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">RPM</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- RHEL -->
+                                    <div class="bg-gray-600 p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-redhat text-red-500 text-2xl mr-3"></i>
+                                            <h5 class="text-lg font-semibold">RHEL</h5>
+                                        </div>
+                                        <p class="text-gray-300 text-sm">
+                                            Red Hat Enterprise Linux. Commercial, stable, with long-term support for enterprise use.
+                                        </p>
+                                        <div class="mt-2 flex flex-wrap gap-1">
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">Enterprise</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">Stable</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">YUM</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Arch -->
+                                    <div class="bg-gray-600 p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-archway text-light-blue-400 text-2xl mr-3"></i>
+                                            <h5 class="text-lg font-semibold">Arch Linux</h5>
+                                        </div>
+                                        <p class="text-gray-300 text-sm">
+                                            Highly customizable, rolling release. For advanced users who want control over their system.
+                                        </p>
+                                        <div class="mt-2 flex flex-wrap gap-1">
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">Rolling</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">Minimal</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">Pacman</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- openSUSE -->
+                                    <div class="bg-gray-600 p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-lizard text-green-400 text-2xl mr-3"></i>
+                                            <h5 class="text-lg font-semibold">openSUSE</h5>
+                                        </div>
+                                        <p class="text-gray-300 text-sm">
+                                            Versatile distro with both stable (Leap) and rolling (Tumbleweed) versions. Known for YaST tool.
+                                        </p>
+                                        <div class="mt-2 flex flex-wrap gap-1">
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">YaST</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">RPM</span>
+                                            <span class="bg-gray-700 px-2 py-1 rounded text-xs">ZYpp</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 p-4 bg-purple-900 bg-opacity-30 rounded-lg border border-purple-800">
+                                <h4 class="font-semibold text-purple-300 mb-2 flex items-center">
+                                    <i class="fas fa-random mr-2"></i> Choosing a Distribution
+                                </h4>
+                                <p class="text-gray-300">
+                                    The right distribution depends on your needs: Ubuntu for beginners, Fedora for developers, Debian for stability, Arch for customization, RHEL/CentOS for enterprise servers. Consider factors like hardware support, software availability, and community support.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bash Commands -->
+                <section class="mb-16">
+                    <h2 class="text-3xl font-bold mb-8 text-yellow-400 flex items-center">
+                        <i class="fas fa-terminal mr-3"></i> Bash Commands
+                    </h2>
+
+                    <!-- Basic Commands -->
+                    <div id="basic-commands" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">Basic Commands</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                These are fundamental commands every Linux user should know for navigating and managing the filesystem.
+                            </p>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-gray-700 rounded-lg overflow-hidden">
+                                    <thead class="bg-gray-600">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">Command</th>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">Description</th>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">Example</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-600">
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">pwd</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Print working directory</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">pwd</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">ls</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">List files and directories</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">ls -l</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">cd</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Change directory</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">cd /home/user</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">mkdir</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Create directory</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">mkdir new_folder</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">rmdir</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Remove empty directory</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">rmdir empty_folder</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">touch</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Create empty file</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">touch new_file.txt</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">rm</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Remove file</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">rm file.txt</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">cp</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Copy file or directory</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">cp file.txt backup/</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">mv</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Move/rename file or directory</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">mv old.txt new.txt</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">cat</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Display file content</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">cat file.txt</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">less</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">View file content page by page</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">less long_file.txt</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">head</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Display beginning of file</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">head -n 10 file.txt</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">tail</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Display end of file</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">tail -f logfile.log</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">echo</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Display text</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">echo "Hello"</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">man</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Display manual page</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">man ls</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-green-300">history</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Show command history</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-300">history | grep "apt"</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="mt-4 p-4 bg-yellow-900 bg-opacity-30 rounded-lg border border-yellow-800">
+                                <h4 class="font-semibold text-yellow-300 mb-2 flex items-center">
+                                    <i class="fas fa-lightbulb mr-2"></i> Command Tips
+                                </h4>
+                                <ul class="text-gray-300 space-y-2">
+                                    <li>Use <span class="font-mono">Tab</span> for auto-completion of commands and filenames</li>
+                                    <li>Press <span class="font-mono">Ctrl+C</span> to stop a running command</li>
+                                    <li>Use <span class="font-mono">Ctrl+R</span> to search through command history</li>
+                                    <li>Append <span class="font-mono">--help</span> to most commands for quick help (e.g., <span class="font-mono">ls --help</span>)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Permissions -->
+                    <div id="file-permissions" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">File Permissions</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                Linux uses a robust permission system to control access to files and directories.
+                            </p>
+                            
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold text-emerald-300 mb-3">Understanding Permissions:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="font-medium text-gray-300 mb-2">Permission Types:</h5>
+                                        <ul class="space-y-1">
+                                            <li class="flex items-start">
+                                                <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">r</span>
+                                                <span>Read (4)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">w</span>
+                                                <span>Write (2)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">x</span>
+                                                <span>Execute (1)</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-medium text-gray-300 mb-2">Permission Groups:</h5>
+                                        <ul class="space-y-1">
+                                            <li class="flex items-start">
+                                                <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">u</span>
+                                                <span>User/Owner</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">g</span>
+                                                <span>Group</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">o</span>
+                                                <span>Others</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h4 class="font-semibold text-gray-300 mb-2">Key Commands:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                    <div class="bg-gray-700 p-3 rounded-lg">
+                                        <div class="font-mono text-green-300 mb-1">chmod</div>
+                                        <div class="text-sm text-gray-300">Change file permissions</div>
+                                        <div class="mt-2 text-xs font-mono bg-gray-800 p-2 rounded">chmod 755 script.sh</div>
+                                    </div>
+                                    <div class="bg-gray-700 p-3 rounded-lg">
+                                        <div class="font-mono text-green-300 mb-1">chown</div>
+                                        <div class="text-sm text-gray-300">Change file owner</div>
+                                        <div class="mt-2 text-xs font-mono bg-gray-800 p-2 rounded">chown user:group file</div>
+                                    </div>
+                                    <div class="bg-gray-700 p-3 rounded-lg">
+                                        <div class="font-mono text-green-300 mb-1">chgrp</div>
+                                        <div class="text-sm text-gray-300">Change file group</div>
+                                        <div class="mt-2 text-xs font-mono bg-gray-800 p-2 rounded">chgrp team file</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 p-4 bg-blue-900 bg-opacity-30 rounded-lg border border-blue-800">
+                                <h4 class="font-semibold text-blue-300 mb-2 flex items-center">
+                                    <i class="fas fa-lock mr-2"></i> Permission Examples
+                                </h4>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full">
+                                        <thead>
+                                            <tr>
+                                                <th class="px-2 py-1 text-left text-xs font-semibold text-gray-300">Numeric</th>
+                                                <th class="px-2 py-1 text-left text-xs font-semibold text-gray-300">Symbolic</th>
+                                                <th class="px-2 py-1 text-left text-xs font-semibold text-gray-300">Meaning</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-700">
+                                            <tr>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm font-mono">777</td>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm font-mono">rwxrwxrwx</td>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm">All permissions to everyone</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm font-mono">755</td>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm font-mono">rwxr-xr-x</td>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm">Owner: rwx, Group/Others: r-x</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm font-mono">644</td>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm font-mono">rw-r--r--</td>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm">Owner: rw-, Group/Others: r--</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm font-mono">600</td>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm font-mono">rw-------</td>
+                                                <td class="px-2 py-1 whitespace-nowrap text-sm">Owner: rw-, no permissions for others</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Redirection -->
+                    <div id="redirection" class="content-section mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-300 highlight">Redirection and Piping</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-300">
+                                Linux provides powerful tools for redirecting input/output and chaining commands together.
+                            </p>
+                            
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold text-emerald-300 mb-3">Redirection Operators:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <div class="font-mono text-green-300 mb-1">&gt;</div>
+                                        <div class="text-sm text-gray-300">Redirect output to a file (overwrite)</div>
+                                        <div class="mt-2 text-xs font-mono bg-gray-800 p-2 rounded">ls -l > filelist.txt</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-mono text-green-300 mb-1">&gt;&gt;</div>
+                                        <div class="text-sm text-gray-300">Redirect output to a file (append)</div>
+                                        <div class="mt-2 text-xs font-mono bg-gray-800 p-2 rounded">echo "New line" >> file.txt</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-mono text-green-300 mb-1">&lt;</div>
+                                        <div class="text-sm text-gray-300">Redirect input from a file</div>
+                                        <div class="mt-2 text-xs font-mono bg-gray-800 p-2 rounded">sort < unsorted.txt</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-mono text-green-300 mb-1">2&gt;</div>
+                                        <div class="text-sm text-gray-300">Redirect error output</div>
+                                        <div class="mt-2 text-xs font-mono bg-gray-800 p-2 rounded">command 2> error.log</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 bg-gray-700 p-4 rounded-lg">
+                                <h4 class="font-semibold text-emerald-300 mb-3">Piping:</h4>
+                                <div>
+                                    <div class="font-mono text-green-300 mb-1">|</div>
+                                    <div class="text-sm text-gray-300">Pipe output of one command to input of another</div>
+                                    <div class="mt-2 text-xs font-mono bg-gray-800 p-2 rounded">ls -l | grep "myfile"</div>
+                                    <div class="mt-3 text-sm text-gray-300">Common pipeline commands:</div>
+                                    <ul class="mt-1 space-y-1">
+                                        <li class="flex items-start">
+                                            <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">grep</span>
+                                            <span>Search for patterns</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">sort</span>
+                                            <span>Sort lines</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">uniq</span>
+                                            <span>Filter duplicate lines</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">wc</span>
+                                            <span>Count words/lines</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">awk</span>
+                                            <span>Pattern scanning and processing</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="font-mono bg-gray-800 px-2 py-1 rounded mr-2">sed</span>
+                                            <span>Stream editor for filtering/transforming</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 p-4 bg-purple-900 bg-opacity-30 rounded-lg border border-purple-800">
+                                <h4 class="font-semibold text-purple-300 mb-2 flex items-center">
+                                    <i class="fas fa-project-diagram mr-2"></i> Advanced Piping
+                                </h4>
+                                <p class="text-gray-300">
+                                    You can chain multiple commands together with pipes. For example:
+                                    <span class="block font-mono bg-gray-800 p-2 rounded mt-2 text-sm">
+                                        cat logfile.txt | grep "ERROR" | sort | uniq -c | sort -nr
+                                    </span>
+                                    This command sequence: reads a log file, filters for ERROR lines, sorts them, counts unique occurrences, then sorts by count in reverse order.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--
+</html>
