@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Tutorial: From Fundamentals to Essential Libraries</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .code-keyword { color: #f92672; }
+        .code-string { color: #e6db74; }
+        .code-comment { color: #75715e; }
+        .code-function { color: #66d9ef; }
+        .code-number { color: #ae81ff; }
+        .code-operator { color: #f92672; }
+        .code-constant { color: #ae81ff; }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .section-anchor {
+            scroll-margin-top: 100px;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fab fa-python text-3xl"></i>
+                <h1 class="text-2xl font-bold">Python Tutorial</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#introduction" class="hover:text-blue-200 transition">Introduction</a>
+                <a href="#fundamentals" class="hover:text-blue-200 transition">Fundamentals</a>
+                <a href="#control-flow" class="hover:text-blue-200 transition">Control Flow</a>
+                <a href="#modules-oop" class="hover:text-blue-200 transition">Modules & OOP</a>
+                <a href="#libraries" class="hover:text-blue-200 transition">Libraries</a>
+            </nav>
+            <button class="md:hidden text-2xl" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-700 pb-4 px-4">
+            <div class="flex flex-col space-y-3">
+                <a href="#introduction" class="block py-2 hover:bg-blue-600 rounded px-4">Introduction</a>
+                <a href="#fundamentals" class="block py-2 hover:bg-blue-600 rounded px-4">Fundamentals</a>
+                <a href="#control-flow" class="block py-2 hover:bg-blue-600 rounded px-4">Control Flow</a>
+                <a href="#modules-oop" class="block py-2 hover:bg-blue-600 rounded px-4">Modules & OOP</a>
+                <a href="#libraries" class="block py-2 hover:bg-blue-600 rounded px-4">Libraries</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col md:flex-row container mx-auto px-4 py-8">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 flex-shrink-0 mb-8 md:mb-0 md:mr-8">
+            <div class="bg-white rounded-lg shadow-md p-4 sticky top-28">
+                <h2 class="text-xl font-semibold mb-4 text-blue-700 border-b pb-2">Table of Contents</h2>
+                <nav class="space-y-2">
+                    <a href="#introduction" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-play-circle mr-2 text-blue-500"></i> Introduction
+                    </a>
+                    <a href="#fundamentals" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-cubes mr-2 text-blue-500"></i> Fundamentals
+                    </a>
+                    <a href="#control-flow" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-code-branch mr-2 text-blue-500"></i> Control Flow
+                    </a>
+                    <a href="#modules-oop" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-project-diagram mr-2 text-blue-500"></i> Modules & OOP
+                    </a>
+                    <a href="#libraries" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-book mr-2 text-blue-500"></i> Essential Libraries
+                    </a>
+                    <a href="#conclusion" class="block nav-link py-2 px-3 rounded transition flex items-center">
+                        <i class="fas fa-flag-checkered mr-2 text-blue-500"></i> Conclusion
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Introduction Section -->
+            <section id="introduction" class="section-anchor bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-play-circle text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Introduction to Python</h2>
+                </div>
+                <p class="mb-4 text-gray-700">
+                    Python is a high-level, interpreted, general-purpose programming language known for its readability, 
+                    simplicity, and extensive libraries. It's widely used in web development, data science, machine learning, 
+                    scripting, automation, and much more.
+                </p>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r">
+                    <h3 class="font-semibold text-blue-800 mb-2">Prerequisites:</h3>
+                    <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                        <li><strong>Python Installation:</strong> Ensure you have Python 3 installed from <a href="https://python.org" class="text-blue-600 hover:underline">python.org</a></li>
+                        <li><strong>Code Editor or IDE:</strong> VS Code, PyCharm, Sublime Text, or online platforms like Google Colab</li>
+                    </ul>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Your First Python Code</h3>
+                <p class="mb-4 text-gray-700">
+                    The traditional first program is "Hello, World!":
+                </p>
+                
+                <div class="code-block">
+                    <span class="code-comment"># This is a comment. Python ignores lines starting with #</span><br>
+                    <span class="code-function">print</span>(<span class="code-string">"Hello, World!"</span>)
+                </div>
+                
+                <p class="mb-4 text-gray-700">
+                    Save this as <code class="bg-gray-100 px-2 py-1 rounded">hello.py</code> and run it with:
+                </p>
+                
+                <div class="code-block">
+                    python hello.py
+                </div>
+                
+                <p class="text-gray-700">
+                    The <code class="bg-gray-100 px-2 py-1 rounded">print()</code> function is a built-in Python function used to display output to the console.
+                </p>
+            </section>
+
+            <!-- Fundamentals Section -->
+            <section id="fundamentals" class="section-anchor bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-cubes text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Python Fundamentals</h2>
+                </div>
+                
+                <!-- Variables -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800 border-b pb-2">1.1 Variables</h3>
+                    <p class="mb-4 text-gray-700">
+                        Variables are names given to memory locations used to store data values. Think of them as labeled boxes where you can put information.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Key Points:</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                <li>Created with <code class="bg-gray-100 px-1 py-0.5 rounded">=</code> operator</li>
+                                <li>Dynamic typing (no type declaration needed)</li>
+                                <li>Case-sensitive names</li>
+                                <li>Cannot use Python keywords</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Naming Rules:</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                <li>Start with letter or underscore</li>
+                                <li>Can contain letters, numbers, underscores</li>
+                                <li>No spaces or special characters</li>
+                                <li>Descriptive names recommended</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="code-block">
+                        <span class="code-comment"># Variable assignment examples</span><br>
+                        message = <span class="code-string">"Learning Python is fun!"</span> <span class="code-comment"># A string variable</span><br>
+                        count = <span class="code-number">15</span>                      <span class="code-comment"># An integer variable</span><br>
+                        price = <span class="code-number">19.99</span>                   <span class="code-comment"># A float variable</span><br>
+                        is_valid = <span class="code-constant">True</span>                 <span class="code-comment"># A boolean variable</span><br><br>
+                        
+                        <span class="code-comment"># Variables can be reassigned to different values (and types)</span><br>
+                        count = <span class="code-number">20</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">"New count:"</span>, count)<br>
+                        count = <span class="code-string">"Twenty"</span> <span class="code-comment"># Now count holds a string</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">"Count is now:"</span>, count)
+                    </div>
+                </div>
+                
+                <!-- Data Types -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800 border-b pb-2">1.2 Data Types</h3>
+                    <p class="mb-4 text-gray-700">
+                        Data types define the kind of value a variable can hold and the operations that can be performed on it.
+                    </p>
+                    
+                    <div class="overflow-x-auto mb-6">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 border-b text-left">Type</th>
+                                    <th class="px-4 py-2 border-b text-left">Description</th>
+                                    <th class="px-4 py-2 border-b text-left">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 border-b"><code>int</code></td>
+                                    <td class="px-4 py-2 border-b">Integer (whole numbers)</td>
+                                    <td class="px-4 py-2 border-b"><code>10, -5, 0</code></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 border-b"><code>float</code></td>
+                                    <td class="px-4 py-2 border-b">Floating-point number</td>
+                                    <td class="px-4 py-2 border-b"><code>3.14, -0.01</code></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 border-b"><code>str</code></td>
+                                    <td class="px-4 py-2 border-b">String (text)</td>
+                                    <td class="px-4 py-2 border-b"><code>"Hello", 'Python'</code></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 border-b"><code>bool</code></td>
+                                    <td class="px-4 py-2 border-b">Boolean (True/False)</td>
+                                    <td class="px-4 py-2 border-b"><code>True, False</code></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 border-b"><code>list</code></td>
+                                    <td class="px-4 py-2 border-b">Mutable sequence</td>
+                                    <td class="px-4 py-2 border-b"><code>[1, "apple", 3.5]</code></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 border-b"><code>tuple</code></td>
+                                    <td class="px-4 py-2 border-b">Immutable sequence</td>
+                                    <td class="px-4 py-2 border-b"><code>(1, "apple", 3.5)</code></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 border-b"><code>dict</code></td>
+                                    <td class="px-4 py-2 border-b">Key-value pairs</td>
+                                    <td class="px-4 py-2 border-b"><code>{"name": "Bob", "age": 25}</code></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 border-b"><code>set</code></td>
+                                    <td class="px-4 py-2 border-b">Unordered unique elements</td>
+                                    <td class="px-4 py-2 border-b"><code>{1, 2, 3}</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="code-block">
+                        <span class="code-comment"># Checking data types with type()</span><br>
+                        num = <span class="code-number">10</span><br>
+                        pi = <span class="code-number">3.14159</span><br>
+                        greeting = <span class="code-string">"Good morning"</span><br>
+                        my_list = [<span class="code-number">10</span>, <span class="code-number">20</span>, <span class="code-number">30</span>]<br>
+                        my_tuple = (<span class="code-number">10</span>, <span class="code-number">20</span>, <span class="code-number">30</span>)<br>
+                        my_dict = {<span class="code-string">'a'</span>: <span class="code-number">1</span>, <span class="code-string">'b'</span>: <span class="code-number">2</span>}<br>
+                        my_set = {<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">2</span>, <span class="code-number">3</span>} <span class="code-comment"># Duplicates are ignored</span><br><br>
+                        
+                        <span class="code-function">print</span>(<span class="code-function">type</span>(num))      <span class="code-comment"># Output: &lt;class 'int'&gt;</span><br>
+                        <span class="code-function">print</span>(<span class="code-function">type</span>(pi))       <span class="code-comment"># Output: &lt;class 'float'&gt;</span><br>
+                        <span class="code-function">print</span>(<span class="code-function">type</span>(greeting)) <span class="code-comment"># Output: &lt;class 'str'&gt;</span><br>
+                        <span class="code-function">print</span>(<span class="code-function">type</span>(my_list))  <span class="code-comment"># Output: &lt;class 'list'&gt;</span><br>
+                        <span class="code-function">print</span>(<span class="code-function">type</span>(my_tuple)) <span class="code-comment"># Output: &lt;class 'tuple'&gt;</span><br>
+                        <span class="code-function">print</span>(<span class="code-function">type</span>(my_dict))  <span class="code-comment"># Output: &lt;class 'dict'&gt;</span><br>
+                        <span class="code-function">print</span>(<span class="code-function">type</span>(my_set))   <span class="code-comment"># Output: &lt;class 'set'&gt;</span><br>
+                        <span class="code-function">print</span>(my_set)         <span class="code-comment"># Output: {1, 2, 3}</span>
+                    </div>
+                </div>
+                
+                <!-- Operators -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800 border-b pb-2">1.3 Operators</h3>
+                    <p class="mb-4 text-gray-700">
+                        Operators are special symbols used to perform operations on values (operands).
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <!-- Arithmetic Operators -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Arithmetic Operators</h4>
+                            <ul class="space-y-2">
+                                <li><code>+</code> Addition</li>
+                                <li><code>-</code> Subtraction</li>
+                                <li><code>*</code> Multiplication</li>
+                                <li><code>/</code> Division (float result)</li>
+                                <li><code>%</code> Modulus (remainder)</li>
+                                <li><code>**</code> Exponentiation</li>
+                                <li><code>//</code> Floor division</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Comparison Operators -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Comparison Operators</h4>
+                            <ul class="space-y-2">
+                                <li><code>==</code> Equal to</li>
+                                <li><code>!=</code> Not equal to</li>
+                                <li><code>></code> Greater than</li>
+                                <li><code><</code> Less than</li>
+                                <li><code>>=</code> Greater than or equal to</li>
+                                <li><code><=</code> Less than or equal to</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Logical Operators -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Logical Operators</h4>
+                            <ul class="space-y-2">
+                                <li><code>and</code> Both conditions true</li>
+                                <li><code>or</code> At least one condition true</li>
+                                <li><code>not</code> Reverses the result</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Other Operators -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Other Operators</h4>
+                            <ul class="space-y-2">
+                                <li><code>in</code> Membership (sequence)</li>
+                                <li><code>not in</code> Not in sequence</li>
+                                <li><code>is</code> Identity (same object)</li>
+                                <li><code>is not</code> Not same object</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="code-block">
+                        <span class="code-comment"># Arithmetic examples</span><br>
+                        a = <span class="code-number">15</span><br>
+                        b = <span class="code-number">4</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">f"{a} + {b} = {a + b}"</span>)   <span class="code-comment"># 19</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">f"{a} / {b} = {a / b}"</span>)   <span class="code-comment"># 3.75</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">f"{a} // {b} = {a // b}"</span>) <span class="code-comment"># 3</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">f"{a} % {b} = {a % b}"</span>)   <span class="code-comment"># 3</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">f"{a} ** {b} = {a ** b}"</span>) <span class="code-comment"># 50625</span><br><br>
+                        
+                        <span class="code-comment"># Comparison examples</span><br>
+                        x = <span class="code-number">10</span><br>
+                        y = <span class="code-number">20</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">f"{x} == {y}: {x == y}"</span>) <span class="code-comment"># False</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">f"{x} < {y}: {x < y}"</span>)   <span class="code-comment"># True</span><br><br>
+                        
+                        <span class="code-comment"># Logical examples</span><br>
+                        age = <span class="code-number">22</span><br>
+                        has_license = <span class="code-constant">True</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">f"Can drive? {age >= 18 and has_license}"</span>) <span class="code-comment"># True</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">f"Is minor or no license? {age < 18 or not has_license}"</span>) <span class="code-comment"># False</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Control Flow Section -->
+            <section id="control-flow" class="section-anchor bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-code-branch text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Control Flow and Functions</h2>
+                </div>
+                
+                <!-- Conditional Statements -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800 border-b pb-2">2.1 Control Flow Statements</h3>
+                    <h4 class="font-semibold text-lg mb-2 text-gray-800">Conditional Statements (if, elif, else)</h4>
+                    <p class="mb-4 text-gray-700">
+                        Allow your program to make decisions and execute different blocks of code based on conditions. 
+                        Indentation is crucial in Python; it defines the code blocks.
+                    </p>
+                    
+                    <div class="code-block">
+                        temperature = <span class="code-number">25</span><br><br>
+                        
+                        <span class="code-keyword">if</span> temperature > <span class="code-number">30</span>:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"It's a hot day!"</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Stay hydrated."</span>)<br>
+                        <span class="code-keyword">elif</span> temperature > <span class="code-number">20</span>: <span class="code-comment"># elif stands for "else if"</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"It's a pleasant day."</span>)<br>
+                        <span class="code-keyword">elif</span> temperature < <span class="code-number">10</span>:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"It's quite cold."</span>)<br>
+                        <span class="code-keyword">else</span>:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"It's cool."</span>)<br><br>
+                        
+                        <span class="code-comment"># This line is outside the if/elif/else block</span><br>
+                        <span class="code-function">print</span>(<span class="code-string">"Weather check complete."</span>)
+                    </div>
+                </div>
+                
+                <!-- Loops -->
+                <div class="mb-8">
+                    <h4 class="font-semibold text-lg mb-2 text-gray-800">Loops</h4>
+                    <p class="mb-4 text-gray-700">
+                        Used to execute a block of code repeatedly.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h5 class="font-semibold mb-2 text-gray-800">for loop</h5>
+                            <p class="mb-2 text-gray-700">
+                                Iterates over the items of any sequence (list, tuple, string, etc.)
+                            </p>
+                            <div class="code-block">
+                                <span class="code-comment"># Looping through a list</span><br>
+                                fruits = [<span class="code-string">"apple"</span>, <span class="code-string">"banana"</span>, <span class="code-string">"cherry"</span>]<br>
+                                <span class="code-keyword">for</span> fruit <span class="code-keyword">in</span> fruits:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">f"- {fruit}"</span>)
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-semibold mb-2 text-gray-800">while loop</h5>
+                            <p class="mb-2 text-gray-700">
+                                Executes as long as a condition remains True
+                            </p>
+                            <div class="code-block">
+                                count = <span class="code-number">0</span><br>
+                                <span class="code-keyword">while</span> count < <span class="code-number">5</span>:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">f"Count is {count}"</span>)<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;count += <span class="code-number">1</span> <span class="code-comment"># Crucial step</span><br>
+                                <span class="code-function">print</span>(<span class="code-string">"Loop finished."</span>)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5 class="font-semibold mb-2 text-gray-800">Loop Control Statements</h5>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <h6 class="font-semibold text-blue-700">break</h6>
+                            <p class="text-gray-700">Immediately terminates the current loop</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <h6 class="font-semibold text-blue-700">continue</h6>
+                            <p class="text-gray-700">Skips to the next iteration</p>
+                        </div>
+                    </div>
+                    
+                    <div class="code-block">
+                        <span class="code-keyword">for</span> num <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-number">1</span>, <span class="code-number">11</span>): <span class="code-comment"># Numbers 1 to 10</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> num == <span class="code-number">7</span>:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Breaking at 7"</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">break</span> <span class="code-comment"># Exit the loop when num is 7</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> num % <span class="code-number">2</span> == <span class="code-number">0</span>:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">continue</span> <span class="code-comment"># Skip even numbers</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">f"Processing odd number: {num}"</span>)
+                    </div>
+                </div>
+                
+                <!-- Functions -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800 border-b pb-2">2.2 Functions</h3>
+                    <p class="mb-4 text-gray-700">
+                        Functions are named blocks of reusable code that perform a specific task. They help make code modular, 
+                        organized, and easier to maintain (DRY - Don't Repeat Yourself).
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-semibold mb-2 text-gray-800">Function Definition</h4>
+                            <div class="code-block">
+                                <span class="code-comment"># Defining a function with parameters and return value</span><br>
+                                <span class="code-keyword">def</span> <span class="code-function">calculate_area</span>(length, width):<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"""Calculates the area of a rectangle."""</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> length < <span class="code-number">0</span> <span class="code-keyword">or</span> width < <span class="code-number">0</span>:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-constant">None</span> <span class="code-comment"># Indicate invalid input</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;area = length * width<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> area<br><br>
+                                
+                                <span class="code-comment"># Calling the function</span><br>
+                                rect_area = <span class="code-function">calculate_area</span>(<span class="code-number">10</span>, <span class="code-number">5</span>)<br>
+                                <span class="code-keyword">if</span> rect_area <span class="code-keyword">is</span> <span class="code-keyword">not</span> <span class="code-constant">None</span>:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">f"The area is: {rect_area}"</span>)
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold mb-2 text-gray-800">Default Parameters</h4>
+                            <div class="code-block">
+                                <span class="code-keyword">def</span> <span class="code-function">power</span>(base, exponent=<span class="code-number">2</span>):<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"""Calculates base raised to the power of exponent."""</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> base ** exponent<br><br>
+                                
+                                <span class="code-function">print</span>(<span class="code-string">f"3 squared is: {power(3)}"</span>)      <span class="code-comment"># Uses default exponent 2 -> 9</span><br>
+                                <span class="code-function">print</span>(<span class="code-string">f"2 cubed is: {power(2, 3)}"</span>)    <span class="code-comment"># Provides exponent 3 -> 8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modules and OOP Section -->
+            <section id="modules-oop" class="section-anchor bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-project-diagram text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Modules and OOP Concepts</h2>
+                </div>
+                
+                <!-- Modules -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800 border-b pb-2">3.1 Modules</h3>
+                    <p class="mb-4 text-gray-700">
+                        Modules are Python files (.py extension) containing Python definitions that can be imported into other Python scripts.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-semibold mb-2 text-gray-800">Importing Modules</h4>
+                            <div class="code-block">
+                                <span class="code-comment"># Import entire module</span><br>
+                                <span class="code-keyword">import</span> math<br>
+                                <span class="code-function">print</span>(<span class="code-string">f"Square root of 16: {math.sqrt(16)}"</span>)<br><br>
+                                
+                                <span class="code-comment"># Import specific items</span><br>
+                                <span class="code-keyword">from</span> math <span class="code-keyword">import</span> sqrt, pow<br>
+                                <span class="code-function">print</span>(<span class="code-string">f"Square root of 25: {sqrt(25)}"</span>)<br><br>
+                                
+                                <span class="code-comment"># Import with alias</span><br>
+                                <span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np<br>
+                                arr = np.array([<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>])
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold mb-2 text-gray-800">Creating Your Own Module</h4>
+                            <p class="mb-2 text-gray-700">Create <code class="bg-gray-100 px-1 py-0.5 rounded">my_utils.py</code>:</p>
+                            <div class="code-block">
+                                <span class="code-comment"># my_utils.py</span><br>
+                                PI = <span class="code-number">3.14159</span><br><br>
+                                
+                                <span class="code-keyword">def</span> <span class="code-function">calculate_circumference</span>(radius):<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"""Calculates circle circumference."""</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-number">2</span> * PI * radius
+                            </div>
+                            
+                            <p class="mt-4 mb-2 text-gray-700">Then in <code class="bg-gray-100 px-1 py-0.5 rounded">main.py</code>:</p>
+                            <div class="code-block">
+                                <span class="code-keyword">import</span> my_utils<br>
+                                circum = my_utils.<span class="code-function">calculate_circumference</span>(<span class="code-number">5</span>)<br>
+                                <span class="code-function">print</span>(<span class="code-string">f"Circumference: {circum}"</span>)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- OOP -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800 border-b pb-2">3.2 Object-Oriented Programming (OOP)</h3>
+                    <p class="mb-4 text-gray-700">
+                        OOP structures code around "objects," which combine data (attributes) and behavior (methods).
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-semibold mb-2 text-gray-800">Class Definition</h4>
+                            <div class="code-block">
+                                <span class="code-comment"># Define a class named 'Car'</span><br>
+                                <span class="code-keyword">class</span> <span class="code-function">Car</span>:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># Class attribute (shared by all instances)</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;wheels = <span class="code-number">4</span><br><br>
+                                
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># Constructor method</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-function">__init__</span>(<span class="code-keyword">self</span>, make, model, year, color):<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># Instance attributes</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">self</span>.make = make<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">self</span>.model = model<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">self</span>.year = year<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">self</span>.color = color<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">self</span>.is_running = <span class="code-constant">False</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">f"Created a {year} {make} {model}."</span>)<br><br>
+                                
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># Instance method</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-function">start_engine</span>(<span class="code-keyword">self</span>):<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> <span class="code-keyword">not</span> <span class="code-keyword">self</span>.is_running:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">self</span>.is_running = <span class="code-constant">True</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">f"The {self.make} {self.model}'s engine is running."</span>)
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold mb-2 text-gray-800">Creating and Using Objects</h4>
+                            <div class="code-block">
+                                <span class="code-comment"># Create instances (objects) of Car</span><br>
+                                my_car = <span class="code-function">Car</span>(<span class="code-string">"Toyota"</span>, <span class="code-string">"Camry"</span>, <span class="code-number">2022</span>, <span class="code-string">"Blue"</span>)<br>
+                                your_car = <span class="code-function">Car</span>(<span class="code-string">"Honda"</span>, <span class="code-string">"Civic"</span>, <span class="code-number">2021</span>, <span class="code-string">"Red"</span>)<br><br>
+                                
+                                <span class="code-comment"># Access attributes</span><br>
+                                <span class="code-function">print</span>(<span class="code-string">f"My car's make: {my_car.make}"</span>)<br>
+                                <span class="code-function">print</span>(<span class="code-string">f"All cars have {Car.wheels} wheels."</span>)<br><br>
+                                
+                                <span class="code-comment"># Call methods</span><br>
+                                my_car.<span class="code-function">start_engine</span>()<br>
+                                your_car.<span class="code-function">start_engine</span>()
+                            </div>
+                            
+                            <h4 class="font-semibold mt-4 mb-2 text-gray-800">OOP Principles</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                <li><strong>Inheritance:</strong> Creating new classes from existing ones</li>
+                                <li><strong>Encapsulation:</strong> Bundling data with methods</li>
+                                <li><strong>Polymorphism:</strong> Same interface for different objects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Libraries Section -->
+            <section id="libraries" class="section-anchor bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-book text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Essential Libraries Overview</h2>
+                </div>
+                
+                <p class="mb-6 text-gray-700">
+                    Python's power is significantly amplified by its vast ecosystem of third-party libraries. Here are some of the most commonly used ones:
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- NumPy -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-calculator text-blue-600 mr-2"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">NumPy</h3>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            The fundamental package for scientific computing with Python. Provides support for large, multi-dimensional arrays and matrices.
+                        </p>
+                        <div class="text-sm text-blue-600">
+                            <span class="font-semibold">Install:</span> pip install numpy
+                        </div>
+                    </div>
+                    
+                    <!-- Pandas -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-table text-blue-600 mr-2"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">Pandas</h3>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            High-performance, easy-to-use data structures and data analysis tools. Essential for data cleaning and manipulation.
+                        </p>
+                        <div class="text-sm text-blue-600">
+                            <span class="font-semibold">Install:</span> pip install pandas
+                        </div>
+                    </div>
+                    
+                    <!-- Matplotlib -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-chart-line text-blue-600 mr-2"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">Matplotlib</h3>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            A comprehensive library for creating static, animated, and interactive visualizations in Python.
+                        </p>
+                        <div class="text-sm text-blue-600">
+                            <span class="font-semibold">Install:</span> pip install matplotlib
+                        </div>
+                    </div>
+                    
+                    <!-- Seaborn -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-chart-bar text-blue-600 mr-2"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">Seaborn</h3>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            A data visualization library based on Matplotlib that provides a high-level interface for statistical graphics.
+                        </p>
+                        <div class="text-sm text-blue-600">
+                            <span class="font-semibold">Install:</span> pip install seaborn
+                        </div>
+                    </div>
+                    
+                    <!-- Requests -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-globe text-blue-600 mr-2"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">Requests</h3>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            Makes HTTP requests simple and human-friendly. Used for interacting with web services (APIs).
+                        </p>
+                        <div class="text-sm text-blue-600">
+                            <span class="font-semibold">Install:</span> pip install requests
+                        </div>
+                    </div>
+                    
+                    <!-- Flask & Django -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-code text-blue-600 mr-2"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">Flask & Django</h3>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            Web development frameworks for building web applications. Flask is lightweight, Django is "batteries-included".
+                        </p>
+                        <div class="text-sm text-blue-600">
+                            <span class="font-semibold">Install:</span> pip install Flask / pip install Django
+                        </div>
+                    </div>
+                    
+                    <!-- Scikit-learn -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-brain text-blue-600 mr-2"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">Scikit-learn</h3>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            One of the most popular libraries for machine learning. Provides efficient tools for data analysis and ML tasks.
+                        </p>
+                        <div class="text-sm text-blue-600">
+                            <span class="font-semibold">Install:</span> pip install scikit-learn
+                        </div>
+                    </div>
+                    
+                    <!-- Installation -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition col-span-1 md:col-span-2">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-download text-blue-600 mr-2"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">How to Install Libraries</h3>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            Use pip, the Python package installer, in your terminal or command prompt:
+                        </p>
+                        <div class="code-block">
+                            <span class="code-comment"># Install multiple libraries at once</span><br>
+                            pip install numpy pandas matplotlib<br><br>
+                            
+                            <span class="code-comment"># Install a specific library</span><br>
+                            pip install requests
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section id="conclusion" class="section-anchor bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-flag-checkered text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Conclusion & Next Steps</h2>
+                </div>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r">
+                    <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways:</h3>
+                    <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                        <li>Python emphasizes readability and uses indentation to define code blocks.</li>
+                        <li>Understanding variables, data types, and operators is essential.</li>
+                        <li>Control flow directs the execution path of your program.</li>
+                        <li>Functions, classes, and modules help structure and organize code.</li>
+                        <li>Python's vast library ecosystem is a major strength.</li>
+                    </ul>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Where to Go From Here:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Practice & Projects</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                            <li>Solve problems on LeetCode, HackerRank, or Codewars</li>
+                            <li>Build a command-line calculator</li>
+                            <li>Create a number guessing game</li>
+                            <li>Develop a script to rename files in a folder</li>
+                            <li>Build a basic web scraper</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Learning Resources</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                            <li>Read the <a href="https://docs.python.org/3/" class="text-blue-600 hover:underline">official Python documentation</a></li>
+                            <li>Work through library tutorials (Pandas, Matplotlib, etc.)</li>
+                            <li>Join Python communities (Stack Overflow, Discord servers)</li>
+                            <li>Follow Python blogs and newsletters</li>
+                            <li>Take online courses or read Python books</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-8 p-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg text-white">
+                    <h3 class="text-xl font-bold mb-3">Final Thoughts</h3>
+                    <p class="mb-4">
+                        Python is a versatile language with a welcoming community. Keep learning, keep coding, and enjoy the journey!
+                    </p>
+                    <div class="flex justify-center">
+                        <button class="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-100 transition">
+                            Start Coding Now
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fab fa-python text-3xl text-blue-400"></i>
+                        <h2 class="text-xl font-bold">Python Tutorial</h2>
+                    </div>
+                    <p class="mt-2 text-gray-400">From Fundamentals to Essential Libraries</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400">
+                <p>&copy; 2023 Python Tutorial. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Syntax highlighting helper
+        function highlightCode() {
+            const codeBlocks = document.querySelectorAll('.code-block');
+            codeBlocks.forEach(block => {
+                const code = block.innerHTML;
+                // This is a simplified version - in a real app you might use a library like Prism.js
+                block.innerHTML = code
+                    .replace(/(#.*)/g, '<span class="code-comment">$1</span>')
+                    .replace(/(".*?"|'.*?')/g, '<span class="code-string">$1</span>')
+                    .replace(/\b(def|class|if|elif|else|for|while|return|import|from|as|and|or|not|in|is|True|False|None)\b/g, '<span class="code-keyword">$1</span>')
+                    .replace(/\b(print|type|range)\b/g, '<span class="code-function">$1</span>')
+                    .replace(/\b(\d+\.?\d*)\b/g, '<span class="code-number">$1</span>');
+            });
+        }
+
+        // Run highlighting when page loads
+        document.addEventListener('DOMContentLoaded', highlightCode);
+    </script>
+</body>
+</html>
